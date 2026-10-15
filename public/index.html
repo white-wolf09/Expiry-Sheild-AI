@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <meta
+    name="description"
+    content="ExpiryShield AI helps reduce food waste by tracking pantry expiry dates and generating meal suggestions."
+  />
+  <title>ExpiryShield AI</title>
+
+  <link rel="stylesheet" href="/css/reset.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-content">
+      <a class="brand" href="/" aria-label="ExpiryShield AI home">
+        <span class="brand-mark" aria-hidden="true">E</span>
+        <span>ExpiryShield <span class="brand-ai">AI</span></span>
+      </a>
+
+      <span class="privacy-note">
+        Your pantry stays in your browser
+      </span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Smart food-waste reduction</p>
+        <h1>Use food before it becomes waste.</h1>
+        <p class="hero-text">
+          Track expiry dates and get a practical meal idea for ingredients
+          that need attention.
+        </p>
+      </div>
+
+      <div class="hero-badge" aria-hidden="true">
+        <span>✦</span>
+        <strong>Plan better</strong>
+        <small>Waste less</small>
+      </div>
+    </section>
+
+    <section class="summary-grid" aria-label="Pantry summary">
+      <article class="summary-card summary-card--danger">
+        <span class="summary-label">Expired</span>
+        <strong id="expired-count" class="summary-number">0</strong>
+        <span class="summary-detail">Needs attention</span>
+      </article>
+
+      <article class="summary-card summary-card--warning">
+        <span class="summary-label">Today</span>
+        <strong id="today-count" class="summary-number">0</strong>
+        <span class="summary-detail">Use it first</span>
+      </article>
+
+      <article class="summary-card summary-card--info">
+        <span class="summary-label">Next 7 days</span>
+        <strong id="soon-count" class="summary-number">0</strong>
+        <span class="summary-detail">Plan a meal</span>
+      </article>
+
+      <article class="summary-card summary-card--success">
+        <span class="summary-label">All tracked</span>
+        <strong id="total-count" class="summary-number">0</strong>
+        <span class="summary-detail">Pantry items</span>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <section class="panel add-panel" aria-labelledby="add-item-title">
+        <div class="panel-heading">
+          <p class="eyebrow">Quick entry</p>
+          <h2 id="add-item-title">Add pantry item</h2>
+        </div>
+
+        <form id="item-form" class="item-form" novalidate>
+          <div class="form-group">
+            <label for="item-name">Item name</label>
+            <input
+              id="item-name"
+              name="itemName"
+              type="text"
+              placeholder="e.g. Fresh milk"
+              maxlength="80"
+              autocomplete="off"
+              required
+            />
+            <p id="name-error" class="form-error" aria-live="polite"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="item-category">Category</label>
+            <select id="item-category" name="category">
+              <option value="Other">Other</option>
+              <option value="Dairy">Dairy</option>
+              <option value="Produce">Produce</option>
+              <option value="Meat">Meat</option>
+              <option value="Bakery">Bakery</option>
+              <option value="Frozen">Frozen</option>
+              <option value="Pantry">Pantry</option>
+              <option value="Beverages">Beverages</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="expiry-date">Expiry date</label>
+            <input
+              id="expiry-date"
+              name="expiryDate"
+              type="date"
+              required
+            />
+            <p id="date-error" class="form-error" aria-live="polite"></p>
+          </div>
+
+          <button class="button button--primary" type="submit">
+            Add to pantry
+          </button>
+        </form>
+      </section>
+
+      <section class="panel items-panel" aria-labelledby="items-title">
+        <div class="panel-heading items-heading">
+          <div>
+            <p class="eyebrow">Your pantry</p>
+            <h2 id="items-title">Tracked items</h2>
+          </div>
+
+          <div class="items-actions">
+            <label class="filter-label" for="status-filter">
+              Filter
+              <select id="status-filter" name="statusFilter">
+                <option value="all">All items</option>
+                <option value="expired">Expired</option>
+                <option value="today">Today</option>
+                <option value="soon">Next 7 days</option>
+                <option value="safe">Later</option>
+              </select>
+            </label>
+
+            <button
+              id="suggest-meal-button"
+              class="button button--secondary"
+              type="button"
+            >
+              ✦ Suggest a meal
+            </button>
+          </div>
+        </div>
+
+        <div id="empty-state" class="empty-state">
+          <div class="empty-state-icon" aria-hidden="true">+</div>
+          <h3>Your pantry is empty</h3>
+          <p>
+            Add your first item to begin tracking expiry dates.
+          </p>
+        </div>
+
+        <ul id="items-list" class="items-list" aria-live="polite"></ul>
+
+        <section
+          id="ai-result"
+          class="ai-result"
+          aria-labelledby="ai-result-title"
+          hidden
+        >
+          <div class="ai-result-heading">
+            <span class="ai-spark" aria-hidden="true">✦</span>
+            <h3 id="ai-result-title">AI meal suggestion</h3>
+          </div>
+
+          <p id="ai-result-text"></p>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        ExpiryShield AI is open source and stores pantry data locally.
+      </p>
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

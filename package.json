@@ -1,0 +1,19 @@
+{
+  "name": "expiry-shield-ai",
+  "version": "1.0.0",
+  "description": "A pantry expiry tracker with Groq AI meal suggestions.",
+  "type": "module",
+  "main": "server/server.js",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node server/server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "groq-sdk": "^0.37.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
